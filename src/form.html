@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="shortcut icon" href="/img/Logo-SSP-Am-novo-300x298.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/Logo-SSP-Am-novo-300x298.png" type="image/x-icon">
     <link rel="import" href="cadastro.html">
     
     <link rel="stylesheet" href="css/styles.css" />
-    <script src="./services/form.js" defer></script>
+    <script src="services/services/axios.min.js"></script>
+    <script src="services/services/form.js" defer></script>
     <title>Cidadania e Segurança</title>
   </head>
   <body>
@@ -16,7 +17,7 @@
       <h3>Formulário - Cidadania e Segurança</h3>
     </div>
 
-    <form action="#" id="myForm">    
+    <form action="#" id="formPessoa">    
       <div class="container">
       <div>
         <br>
@@ -41,10 +42,11 @@
           <label for="genero" class="form-label">Gênero:</label>
           <select name="genero" id="genero" class="form-select">
               <option value="">Selecione uma opção</option>
-              <option value="feminino">Mulher Cisgênero</option>
-              <option value="masculino">Homem Cisgênero</option>
-              <option value="naoResponder">Transexual</option>
-              <option value="outro">Outro</option>
+              <option value="1">Mulher Cisgênero</option>
+              <option value="2">Homem Cisgênero</option>
+              <option value="3">Transexual</option>
+              <option value="4">Travesti</option>
+              <option value="5">Outro</option>
           </select>
       </div>
       
@@ -52,42 +54,48 @@
           <label class="form-label">Estado Civil:</label>
           <br>
           <div class="form-check form-check-inline">
-            <input type="radio" name="estadoCivil" id="solteiro" value="solteiro"  class="form-check-input"/><label for="solteiro" class="form-check-label">Solteiro</label>
+            <input type="radio" name="estadoCivil" id="solteiro" value="1"  class="form-check-input"/><label for="solteiro" class="form-check-label">Solteiro</label>
           </div>
           <div  class="form-check form-check-inline ">
-            <input type="radio" name="estadoCivil" id="casado" value="casado" class="form-check-input" /><label for="casado">Casado</label>
+            <input type="radio" name="estadoCivil" id="casado" value="2" class="form-check-input" /><label for="casado">Casado</label>
           </div>
           <div  class="form-check form-check-inline ">
-            <input type="radio" name="estadoCivil" id="divorciado" value="divorciado" class="form-check-input" /><label for="divorciado">Divorciado</label>
+            <input type="radio" name="estadoCivil" id="divorciado" value="3" class="form-check-input" /><label for="divorciado">Divorciado</label>
           </div  >
           <div  class="form-check  form-check-inline">
-            <input type="radio" name="estadoCivil" id="uniaoEstavel" value="uniaoEstavel"class="form-check-input" /><label for="uniaoEstavel">União Estável</label>
+            <input type="radio" name="estadoCivil" id="uniaoEstavel" value="4"class="form-check-input" /><label for="uniaoEstavel">União Estável</label>
           </div>
-          <div  class="">
+          <div class="form-check form-check-inline">
+            <input type="radio" name="estadoCivil" id="naoDeclarado" value="5"  class="form-check-input"/><label for="naoDeclarado" class="form-check-label">Não Declarado</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input type="radio" name="estadoCivil" id="outro" value="6"  class="form-check-input"/><label for="outro" class="form-check-label">Outro</label>
+          </div>
+          <!--<div  class="">
             <label for="outro" class="form-label">Outro: </label> <input type="text" name="estadoCivil" id="outro"  class="form-control" />
-          </div>
+          </div>-->
         </div>     
         
         <div class="mb-3">
           <label class="form-label">Cor/Raça:</label>
           <br>
           <div class="form-check form-check-inline">
-            <input type="radio" name="cor" id="branca" value="branca" class="form-check-input" /><label for="branca">Branca</label>
+            <input type="radio" name="cor" id="branca" value="1" class="form-check-input" /><label for="branca">Branca</label>
           </div>
           <div  class="form-check form-check-inline">
-          <input type="radio" name="cor" id="preta" value="preta"  class="form-check-input"/><label for="preta">Preta</label>
+          <input type="radio" name="cor" id="preta" value="2"  class="form-check-input"/><label for="preta">Preta</label>
           </div>
           <div  class="form-check  form-check-inline">
-            <input type="radio" name="cor" id="parda" value="parda" class="form-check-input" /><label for="parda">Parda</label>
+            <input type="radio" name="cor" id="parda" value="3" class="form-check-input" /><label for="parda">Parda</label>
           </div>
           <div  class="form-check  form-check-inline">
-            <input type="radio" name="cor" id="indigena" value="indigena" class="form-check-input" /><label for="indigena">Indígena</label>
+            <input type="radio" name="cor" id="indigena" value="4" class="form-check-input" /><label for="indigena">Indígena</label>
           </div>
           <div  class="form-check form-check-inline ">
-            <input type="radio" name="cor" id="naoDeclarado" value="naoDeclarado" class="form-check-input" /><label for="naoDeclarado">Não Declarado</label>
+            <input type="radio" name="cor" id="naoDeclarado" value="5" class="form-check-input" /><label for="naoDeclarado">Não Declarado</label>
           </div>
           <div  class="form-check  form-check-inline"> 
-            <input type="radio" name="cor" id="outra" value="outra" class="form-check-input"/><label for="outra">Outra</label>
+            <input type="radio" name="cor" id="outra" value="6" class="form-check-input"/><label for="outra">Outra</label>
           </div>
         </div>
         <div  class="mb-3">
@@ -102,14 +110,14 @@
           <label for="escolaridade"  class="form-label">Escolaridade</label>
           <select name="escolaridade" id="escolaridade" class="form-select">
             <option value="">Selecione uma opção</option>
-            <option value="analfabeto">Analfabeto</option>
-            <option value="fundamentalIncompleto">Fundamental Incompleto</option>
-            <option value="fundamentalCompleto">Fundamental Completo</option>
-            <option value="medioIncompleto">Médio Incompleto</option>
-            <option value="medioCompleto">Médio Completo</option>
-            <option value="superiorIncompleto">Superior Incompleto</option>
-            <option value="superiorCompleto">Superior Completo</option>
-            <option value="posGraduacao">Pós Graduação</option>
+            <option value="1">Analfabeto</option>
+            <option value="2">Fundamental Incompleto</option>
+            <option value="3">Fundamental Completo</option>
+            <option value="4">Médio Incompleto</option>
+            <option value="5">Médio Completo</option>
+            <option value="6">Superior Incompleto</option>
+            <option value="7">Superior Completo</option>
+            <option value="8">Pós Graduação</option>
           </select>
         </div>
         <div class="mb-3">
@@ -124,16 +132,16 @@
           <label class="form-label">Ocupação Profissional:</label>
           <br>
           <div class="form-check form-check-inline">  
-            <input type="radio" name="ocupacao" id="clt" value="clt"class="form-check-input" /><label for="clt">CLT</label>
+            <input type="radio" name="ocupacao" id="clt" value="1"class="form-check-input" /><label for="clt">CLT</label>
           </div>
           <div class="form-check form-check-inline">
-            <input type="radio" name="ocupacao" id="contrato" value="contrato" class="form-check-input" /><label for="contrato">Contrato</label>
+            <input type="radio" name="ocupacao" id="contrato" value="2" class="form-check-input" /><label for="contrato">Contrato</label>
           </div>
           <div class="form-check form-check-inline">
-            <input type="radio" name="ocupacao" id="autonomo" value="autonomo" class="form-check-input" /><label for="autonomo">Autônomo</label>
+            <input type="radio" name="ocupacao" id="autonomo" value="3" class="form-check-input" /><label for="autonomo">Autônomo</label>
           </div>
           <div class="form-check form-check-inline">
-            <input type="radio" name="ocupacao" id="desempregado" value="desempregado"  class="form-check-input"/><label for="desempregado">Desempregado</label>
+            <input type="radio" name="ocupacao" id="desempregado" value="4"  class="form-check-input"/><label for="desempregado">Desempregado</label>
           </div>
           <div>
             <label for="outraOcupacao" class="form-label">Outra:</label>
@@ -148,39 +156,39 @@
         <div>
           <div class="mb-3">
             <label for="cep" class="form-label">CEP</label>
-            <input type="text" class="form-control" id="cep">
+            <input type="text" class="form-control" name="cep" id="cep">
         </div>
         <div class="row">
             <div class="col">
                 <label for="rua" class="form-label">Rua/Avenida</label>
-                <input type="text" class="form-control" style="width: 25rem;" id="rua">
+                <input type="text" class="form-control" style="width: 25rem;" name="rua" id="rua">
             </div>
             <div class="col">
                 <label for="numero" class="form-label">Número:</label>
-                <input type="text" class="form-control" id="numero">
+                <input type="text" class="form-control" name="numero" id="numero">
             </div>
         </div>
         <div class="mb-3">
             <label for="bairro" class="form-label">Bairro</label>
-            <input type="text" class="form-control" id="bairro">
+            <input type="text" class="form-control" name="bairro" id="bairro">
         </div>
         <div class="mb-3">
             <label for="referencia" class="form-label">Ponto de Referência</label>
-            <input type="text" class="form-control" id="referencia">
+            <input type="text" class="form-control" name="referencia" id="referencia">
         </div>
         <div class="mb-3">
             <label for="telefone" class="form-label">Telefone para contato</label>
-            <input type="text" class="form-control" id="telefone" placeholder="(DDD) 0000-0000">
+            <input type="text" class="form-control" name="telefone" id="telefone" placeholder="(DDD) 0000-0000">
         </div>
 
           <div class="mb-3">
             <label for="whatsapp">Aceita ser inserido em grupo de oferta de serviços no WhatsApp?</label>
             <div class="form-check form-check-inline">
-                <input type="radio" name="aceitaWhatsapp" id="sim" class="form-check-input" /> 
+                <input type="radio" name="aceitaWhatsapp" id="sim" value="1" class="form-check-input" /> 
                 <label for="sim">Sim</label>
             </div>
             <div class="form-check form-check-inline">
-                <input type="radio" name="aceitaWhatsapp" id="nao" class="form-check-input" /> 
+                <input type="radio" name="aceitaWhatsapp" id="nao" value="2" class="form-check-input" /> 
                 <label for="nao">Não</label>
             </div>
         </div>
@@ -194,34 +202,34 @@
         <label for="" class="form-label">Tipo de Residência:</label>
         <br>
         <div class="form-check form-check-inline">
-          <input type="radio" name="tipoResidencia" id="propria" class="form-check-input" />
+          <input type="radio" name="tipoResidencia" id="propria" value="1" class="form-check-input" />
           <label for="propria" class="form-check-label">Própria</label>
         </div>
         <div class="form-check form-check-inline">
-          <input type="radio" name="tipoResidencia" id="alugada"  class="form-check-input" />
+          <input type="radio" name="tipoResidencia" id="alugada" value="2" class="form-check-input" />
           <label for="alugada">Alugada</label>
         </div>
         <div class="form-check form-check-inline">
-          <input type="radio" name="tipoResidencia" id="cedida"   class="form-check-input"/>
+          <input type="radio" name="tipoResidencia" id="cedida" value="3"  class="form-check-input"/>
           <label for="cedida">Cedida</label>
         </div>
         <div class="form-check form-check-inline">
-          <input type="radio" name="tipoResidencia" id="ocupada"  class="form-check-input" />
+          <input type="radio" name="tipoResidencia" id="ocupada" value="4" class="form-check-input" />
           <label for="ocupada" class="form-check-label">Ocupada</label>
         </div>
         <br>
         <label for="" class="form-label">Tipo de Estrutura:</label>
         <br>
         <div class="form-check form-check-inline">
-          <input type="radio" name="tipoEstrutura" id="alvenaria"  class="form-check-input" />
+          <input type="radio" name="tipoEstrutura" id="alvenaria" value="1"  class="form-check-input" />
           <label for="alvenaria">Alvenaria</label>
         </div>
         <div class="form-check form-check-inline">
-          <input type="radio" name="tipoEstrutura" id="madeira"  class="form-check-input" />
+          <input type="radio" name="tipoEstrutura" id="madeira" value="2" class="form-check-input" />
           <label for="madeira">Madeira</label>
         </div>
         <div class="form-check form-check-inline">
-          <input type="radio" name="tipoEstrutura" id="mista"  class="form-check-input" />
+          <input type="radio" name="tipoEstrutura" id="mista" value="3" class="form-check-input" />
           <label for="mista">Mista</label>
         </div>
         <br>
@@ -233,32 +241,32 @@
         <label for="" class="form-label">Energia Elétrica:</label>
         <br>
         <div class="form-check">
-          <input type="radio" name="energiaEletrica" id="comMedidorProprio"  class="form-check-input" />
+          <input type="radio" name="energiaEletrica" id="comMedidorProprio" value="1" class="form-check-input" />
           <label for="comMedidorProprio">Sim, com medidor próprio</label>
         </div>
         <div class="form-check">
-          <input type="radio" name="energiaEletrica" id="comMedidorCompartilhado"  class="form-check-input" />
+          <input type="radio" name="energiaEletrica" id="comMedidorCompartilhado" value="2" class="form-check-input" />
           <label for="comMedidorCompartilhado">Sim, com medidor compartilhado</label>
         </div>
         <div class="form-check">
-          <input type="radio" name="energiaEletrica" id="semMedidor"  class="form-check-input" />
+          <input type="radio" name="energiaEletrica" id="semMedidor" value="3" class="form-check-input" />
           <label for="semMedidor">Sim, sem medidor</label>
         </div>
         <div class="form-check">
-          <input type="radio" name="energiaEletrica" id="semEnergiaEletrica"   class="form-check-input"/>
+          <input type="radio" name="energiaEletrica" id="semEnergiaEletrica" value="4"  class="form-check-input"/>
           <label for="semEnergiaEletrica">Não possui energia elétrica</label>
         </div>
         <label for="" class="form-label">Abastecimento de Água:</label>
         <div class="form-check">
-          <input type="radio" name="abastecimentoAgua" id="redeGeralDistribuicao"  class="form-check-input" />
+          <input type="radio" name="abastecimentoAgua" id="redeGeralDistribuicao" value="1" class="form-check-input" />
           <label for="redeGeralDistribuicao">Rede geral de distribuição</label>
         </div>
         <div class="form-check">
-          <input type="radio" name="abastecimentoAgua" id="pocoArtesiano"  class="form-check-input" />
+          <input type="radio" name="abastecimentoAgua" id="pocoArtesiano" value="2" class="form-check-input" />
           <label for="pocoArtesiano">Poço artesiano</label>
         </div>
         <div class="form-check">
-          <input type="radio" name="abastecimentoAgua" id="semAguaEncanada"   class="form-check-input"/>
+          <input type="radio" name="abastecimentoAgua" id="semAguaEncanada" value="3"  class="form-check-input"/>
           <label for="semAguaEncanada">Não possui água encanada</label>
         </div>
         <div>
@@ -267,15 +275,15 @@
         </div>
         <label for="" class="form-label">Escoamento Sanitário:</label>
         <div>
-          <input type="radio" name="escoamentoSanitario" id="redeGeralDistribuicaoSanitario"  class="form-check-input" />
+          <input type="radio" name="escoamentoSanitario" id="redeGeralDistribuicaoSanitario" value="1" class="form-check-input" />
           <label for="redeGeralDistribuicaoSanitario">Rede geral de distribuição</label>
         </div>
         <div>
-          <input type="radio" name="escoamentoSanitario" id="pocoArtesianoSanitario"  class="form-check-input" />
+          <input type="radio" name="escoamentoSanitario" id="pocoArtesianoSanitario" value="2" class="form-check-input" />
           <label for="pocoArtesianoSanitario">Poço artesiano</label>
         </div>
         <div>
-          <input type="radio" name="escoamentoSanitario" id="semEsgoto"  class="form-check-input" />
+          <input type="radio" name="escoamentoSanitario" id="semEsgoto" value="3" class="form-check-input" />
           <label for="semEsgoto">Não possui esgoto</label>
         </div>
         <div>
@@ -285,19 +293,19 @@
         <div>
           <h5 class="sub-title">Benefícios Sociais</h5>
           <div class="form-check">
-            <input type="radio" name="beneficiosSociais" id="naoBeneficiosSociais"  class="form-check-input" />
+            <input type="radio" name="beneficiosSociais" id="naoBeneficiosSociais" value="1" class="form-check-input" />
             <label for="naoBeneficiosSociais">Não</label>
           </div>
           <div >
-            <input type="radio" name="beneficiosSociais" id="bolsaFamilia"  class="form-check-input" />
+            <input type="radio" name="beneficiosSociais" id="bolsaFamilia" value="2" class="form-check-input" />
             <label for="bolsaFamilia">Bolsa Família</label>
           </div>
           <div>
-            <input type="radio" name="beneficiosSociais" id="auxilioEstadual"  class="form-check-input" />
+            <input type="radio" name="beneficiosSociais" id="auxilioEstadual" value="3" class="form-check-input" />
             <label for="auxilioEstadual">Auxílio Estadual</label>
           </div>
           <div>
-            <input type="radio" name="beneficiosSociais" id="bpc"   class="form-check-input"/>
+            <input type="radio" name="beneficiosSociais" id="bpc" value="4"  class="form-check-input"/>
             <label for="bpc">Benefício de Prestação Continuada (BPC)</label>
           </div>
           <div>
@@ -310,15 +318,15 @@
           <label for="" class="form-label"> Situação do Cadastro Único:</label>
           <br>
           <div class="form-check form-check-inline">
-            <input type="radio" name="situacaoCadastroUnico" id="naoPossuiCadastroUnico"  class="form-check-input" />
+            <input type="radio" name="situacaoCadastroUnico" id="naoPossuiCadastroUnico" value="1" class="form-check-input" />
             <label for="naoPossuiCadastroUnico">Não Possui</label>
           </div>
           <div class="form-check form-check-inline">
-            <input type="radio" name="situacaoCadastroUnico" id="atualizadoCadastroUnico"  class="form-check-input" />
+            <input type="radio" name="situacaoCadastroUnico" id="atualizadoCadastroUnico" value="2" class="form-check-input" />
             <label for="atualizadoCadastroUnico">Atualizado</label>
           </div>
           <div class="form-check form-check-inline">
-            <input type="radio" name="situacaoCadastroUnico" id="desatualizadoCadastroUnico"  class="form-check-input" />
+            <input type="radio" name="situacaoCadastroUnico" id="desatualizadoCadastroUnico" value="3" class="form-check-input" />
             <label for="desatualizadoCadastroUnico">Desatualizado</label>
           </div>
         </div>
@@ -394,7 +402,8 @@
       </div> 
       -->
        
-     <button><a href="/src/tabelasocio.html">Avançar</a></button>
+      <!--<button><a href="/src/tabelasocio.html">Avançar</a></button>-->
+      <button type="submit">Avançar</button>
       </div>
       
     </div>
