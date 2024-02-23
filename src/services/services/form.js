@@ -44,6 +44,7 @@ formPessoa.addEventListener("submit", (e) => {
         naturalidade: formData.get('naturalidade'),
         profissao: formData.get('profissao'),
         renda: formData.get('renda'),
+        documentacao: formData.get('documentacaocivil'),
         endereco: {
             cep: formData.get('cep'),
             rua: formData.get('rua'),
